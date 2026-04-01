@@ -1,9 +1,10 @@
 // App.tsx
 import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useColorScheme, StatusBar } from 'react-native';
 import "./global.css";
 import { Ionicons } from '@expo/vector-icons';
@@ -19,7 +20,7 @@ import { RootTabParamList, StormStackParamList } from './app/types/navigation';
 import { WeatherProvider } from './app/contexts/WeatherContext';
 
 
-const Stack = createStackNavigator<StormStackParamList>();
+const Stack = createNativeStackNavigator<StormStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const StormStack = () => {
@@ -84,17 +85,19 @@ export default function App() {
     const currentTheme = theme === 'dark' ? darkTheme : lightTheme;
 
     return (
-        <WeatherProvider>
-            <SettingsProvider>
-                <BackgroundProvider>
-                    <SafeAreaProvider>
-                        <NavigationContainer>
-                            <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} />
-                            <TabNavigator />
-                        </NavigationContainer>
-                    </SafeAreaProvider>
-                </BackgroundProvider>
-            </SettingsProvider>
-        </WeatherProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <WeatherProvider>
+                <SettingsProvider>
+                    <BackgroundProvider>
+                        <SafeAreaProvider>
+                            <NavigationContainer>
+                                <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} />
+                                <TabNavigator />
+                            </NavigationContainer>
+                        </SafeAreaProvider>
+                    </BackgroundProvider>
+                </SettingsProvider>
+            </WeatherProvider>
+        </GestureHandlerRootView>
     );
 }
