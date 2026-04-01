@@ -43,14 +43,14 @@
         "android.permission.READ_MEDIA_VIDEO",
         "android.permission.READ_MEDIA_AUDIO"
       ],
-      "package": "com.omnidevxs.stormchaser"
+      "package": "com.t4agents.android"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "c2b58d1d-72f0-490f-9a55-82adf41d76bf"
+        "projectId": "d7be3c81-4b9b-4a44-b8c4-a07a32eab684"
       }
     },
     "plugins": [
