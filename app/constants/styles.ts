@@ -1030,6 +1030,7 @@ export const getHomeScreenStyles = (currentTheme: any) => StyleSheet.create({
         padding: currentTheme.spacing.md,
         borderWidth: 1,
         borderColor: currentTheme.colors.border,
+        marginBottom: currentTheme.spacing.sm,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.08,

@@ -4,7 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useColorScheme, StatusBar } from 'react-native';
+import { useColorScheme, StatusBar, LogBox } from 'react-native';
 import "./global.css";
 import { Ionicons } from '@expo/vector-icons';
 import { darkTheme, lightTheme } from './app/constants/theme';
@@ -14,6 +14,11 @@ import { OnboardingScreen } from './app/screens/OnboardingScreen';
 import { SettingsScreen } from './app/screens/SettingsScreen';
 import { SettingsProvider } from './app/contexts/SettingsContext';
 import { RootTabParamList } from './app/types/navigation';
+
+LogBox.ignoreLogs([
+    'SafeAreaView has been deprecated and will be removed in a future release.'
+]);
+
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const TabNavigator = () => {
