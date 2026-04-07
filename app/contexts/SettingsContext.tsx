@@ -2,9 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 interface Settings {
-    autoRefresh: boolean;
+    autoRunPayroll: boolean;
     notifications: boolean;
-    units: 'metric' | 'imperial';
+    payFrequency: 'weekly' | 'biweekly' | 'monthly';
 }
 
 interface SettingsContextType {
@@ -14,9 +14,9 @@ interface SettingsContextType {
 }
 
 const defaultSettings: Settings = {
-    autoRefresh: true,
+    autoRunPayroll: true,
     notifications: false,
-    units: 'metric',
+    payFrequency: 'biweekly',
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);

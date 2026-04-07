@@ -1,17 +1,18 @@
 import { AppTheme } from '../types/index';
+import { colors } from './colors';
 
 export const lightTheme: AppTheme = {
     colors: {
-        primary: '#ffffff',
-        secondary: '#e2e8f0',
-        background: '#ffffff',
-        surface: 'rgba(255, 255, 255, 0.2)',
-        text: '#ffffff',
-        textSecondary: '#e2e8f0',
-        error: '#fecaca',
-        success: '#dcfce7',
-        warning: '#fef3c7',
-        border: 'rgba(255, 255, 255, 0.3)',
+        primary: colors.main,
+        secondary: '#1F2937',
+        background: '#F8F4EE',
+        surface: '#FFFDF9',
+        text: '#1F2937',
+        textSecondary: '#6B7280',
+        error: '#DC2626',
+        success: '#16A34A',
+        warning: '#F59E0B',
+        border: '#E6D8C6',
     },
     spacing: {
         xs: 4,
@@ -30,16 +31,16 @@ export const lightTheme: AppTheme = {
 
 export const darkTheme: AppTheme = {
     colors: {
-        primary: '#ffffff',
-        secondary: '#e2e8f0',
-        background: '#ffffff',
-        surface: 'rgba(255, 255, 255, 0.2)',
-        text: '#ffffff',
-        textSecondary: '#e2e8f0',
-        error: '#fecaca',
-        success: '#dcfce7',
-        warning: '#fef3c7',
-        border: 'rgba(255, 255, 255, 0.3)',
+        primary: colors.main,
+        secondary: '#F8FAFC',
+        background: '#101418',
+        surface: '#1B222C',
+        text: '#F8FAFC',
+        textSecondary: '#94A3B8',
+        error: '#F87171',
+        success: '#22C55E',
+        warning: '#FBBF24',
+        border: '#2A3442',
     },
     spacing: {
         xs: 4,

@@ -1,42 +1,31 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Alert, ScrollView, Switch, Text, TouchableOpacity, useColorScheme, View, ImageBackground } from 'react-native';
+import { Alert, ScrollView, Switch, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { darkTheme, lightTheme } from '../constants/theme';
 import { useSettings } from '../contexts/SettingsContext';
-import { useBackground } from '../contexts/BackgroundContext';
 import { getSettingsScreenStyles } from '../constants/styles';
 
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { RootTabParamList } from '../types/navigation'; // adjust path if needed
-
-
-interface SettingsScreenProps {
-    navigation: BottomTabNavigationProp<RootTabParamList, 'Settings'>;
-}
-
-export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) => {
+export const SettingsScreen: React.FC = () => {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? 'dark' : 'light';
     const currentTheme = theme === 'dark' ? darkTheme : lightTheme;
     const { settings, updateSetting } = useSettings();
-    const { currentBackgroundUrl } = useBackground();
 
-    const clearData = () => {
+    const resetSampleData = () => {
         Alert.alert(
-            'Clear All Data',
-            'This will delete all saved storm documentation and weather data. This action cannot be undone.',
+            'Reset Sample Data',
+            'This will clear demo payroll runs and onboarding documents.',
             [
                 { text: 'Cancel', style: 'cancel' },
                 {
-                    text: 'Clear',
+                    text: 'Reset',
                     style: 'destructive',
                     onPress: async () => {
                         try {
-                            // Note: This would need to be implemented with proper database clearing
-                            Alert.alert('Success', 'All data has been cleared.');
+                            Alert.alert('Success', 'Sample data has been reset.');
                         } catch (error) {
-                            Alert.alert('Error', 'Failed to clear data.');
+                            Alert.alert('Error', 'Failed to reset sample data.');
                         }
                     },
                 },
@@ -47,103 +36,69 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
     const styles = getSettingsScreenStyles(currentTheme);
 
     return (
-        <View style={{ flex: 1 }}>
-            {currentBackgroundUrl ? (
-                <ImageBackground
-                    source={{ uri: currentBackgroundUrl }}
-                    style={{ flex: 1 }}
-                    resizeMode="cover"
-                >
-                    <View style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundColor: 'rgba(0, 0, 0, 0.3)', // Dark overlay for better text readability
-                    }} />
-                    <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Ionicons
-                        name="arrow-back"
-                        size={24}
-                        color={currentTheme.colors.text}
-                    />
-                </TouchableOpacity>
+                <View style={styles.headerIcon}>
+                    <Ionicons name="settings-outline" size={22} color={currentTheme.colors.text} />
+                </View>
                 <Text style={styles.title}>Settings</Text>
             </View>
 
-            <ScrollView style={styles.content}>
+            <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Display</Text>
+                    <Text style={styles.sectionTitle}>Payroll</Text>
 
                     <View style={styles.settingItem}>
                         <View style={styles.settingInfo}>
-                            <Text style={styles.settingTitle}>Units</Text>
+                            <Text style={styles.settingTitle}>Pay Frequency</Text>
                             <Text style={styles.settingDescription}>
-                                Choose temperature and measurement units
+                                Default schedule for new payroll runs
                             </Text>
                         </View>
                         <View style={styles.unitsContainer}>
-                            <TouchableOpacity
-                                style={[
-                                    styles.unitButton,
-                                    settings.units === 'metric'
-                                        ? styles.unitButtonActive
-                                        : styles.unitButtonInactive
-                                ]}
-                                onPress={() => updateSetting('units', 'metric')}
-                            >
-                                <Text style={[
-                                    styles.unitButtonText,
-                                    settings.units === 'metric'
-                                        ? styles.unitButtonTextActive
-                                        : styles.unitButtonTextInactive
-                                ]}>
-                                    Metric
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={[
-                                    styles.unitButton,
-                                    settings.units === 'imperial'
-                                        ? styles.unitButtonActive
-                                        : styles.unitButtonInactive
-                                ]}
-                                onPress={() => updateSetting('units', 'imperial')}
-                            >
-                                <Text style={[
-                                    styles.unitButtonText,
-                                    settings.units === 'imperial'
-                                        ? styles.unitButtonTextActive
-                                        : styles.unitButtonTextInactive
-                                ]}>
-                                    Imperial
-                                </Text>
-                            </TouchableOpacity>
+                            {(['weekly', 'biweekly', 'monthly'] as const).map((value) => (
+                                <TouchableOpacity
+                                    key={value}
+                                    style={[
+                                        styles.unitButton,
+                                        settings.payFrequency === value
+                                            ? styles.unitButtonActive
+                                            : styles.unitButtonInactive
+                                    ]}
+                                    onPress={() => updateSetting('payFrequency', value)}
+                                >
+                                    <Text style={[
+                                        styles.unitButtonText,
+                                        settings.payFrequency === value
+                                            ? styles.unitButtonTextActive
+                                            : styles.unitButtonTextInactive
+                                    ]}>
+                                        {value === 'biweekly' ? 'Bi-weekly' : value.charAt(0).toUpperCase() + value.slice(1)}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
                         </View>
                     </View>
                 </View>
 
                 <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Data & Updates</Text>
+                    <Text style={styles.sectionTitle}>Automation</Text>
 
                     <View style={styles.settingItem}>
                         <View style={styles.settingInfo}>
-                            <Text style={styles.settingTitle}>Auto Refresh</Text>
+                            <Text style={styles.settingTitle}>Auto-run Payroll</Text>
                             <Text style={styles.settingDescription}>
-                                Automatically update weather data every 30 minutes
+                                Create draft runs automatically on schedule
                             </Text>
                         </View>
                         <Switch
-                            value={settings.autoRefresh}
-                            onValueChange={(value) => updateSetting('autoRefresh', value)}
+                            value={settings.autoRunPayroll}
+                            onValueChange={(value) => updateSetting('autoRunPayroll', value)}
                             trackColor={{
                                 false: currentTheme.colors.border,
                                 true: currentTheme.colors.primary
                             }}
-                            thumbColor={settings.autoRefresh ? '#fff' : currentTheme.colors.textSecondary}
+                            thumbColor={settings.autoRunPayroll ? '#fff' : currentTheme.colors.textSecondary}
                         />
                     </View>
 
@@ -151,7 +106,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
                         <View style={styles.settingInfo}>
                             <Text style={styles.settingTitle}>Notifications</Text>
                             <Text style={styles.settingDescription}>
-                                Receive alerts for severe weather conditions
+                                Reminders for approvals and deadlines
                             </Text>
                         </View>
                         <Switch
@@ -166,131 +121,14 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ navigation }) =>
                     </View>
                 </View>
 
-                <View style={styles.dangerSection}>
+                <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Data Management</Text>
 
-                    <TouchableOpacity style={styles.dangerButton} onPress={clearData}>
-                        <Text style={styles.dangerButtonText}>Clear All Data</Text>
+                    <TouchableOpacity style={styles.dangerButton} onPress={resetSampleData}>
+                        <Text style={styles.dangerButtonText}>Reset Sample Data</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
         </SafeAreaView>
-                </ImageBackground>
-            ) : (
-                <SafeAreaView style={styles.container}>
-                    <View style={styles.header}>
-                        <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <Ionicons
-                                name="arrow-back"
-                                size={24}
-                                color={currentTheme.colors.text}
-                            />
-                        </TouchableOpacity>
-                        <Text style={styles.title}>Settings</Text>
-                    </View>
-
-                    <ScrollView style={styles.content}>
-                        <View style={styles.section}>
-                            <Text style={styles.sectionTitle}>Display</Text>
-
-                            <View style={styles.settingItem}>
-                                <View style={styles.settingInfo}>
-                                    <Text style={styles.settingTitle}>Units</Text>
-                                    <Text style={styles.settingDescription}>
-                                        Choose temperature and measurement units
-                                    </Text>
-                                </View>
-                                <View style={styles.unitsContainer}>
-                                    <TouchableOpacity
-                                        style={[
-                                            styles.unitButton,
-                                            settings.units === 'metric'
-                                                ? styles.unitButtonActive
-                                                : styles.unitButtonInactive
-                                        ]}
-                                        onPress={() => updateSetting('units', 'metric')}
-                                    >
-                                        <Text style={[
-                                            styles.unitButtonText,
-                                            settings.units === 'metric'
-                                                ? styles.unitButtonTextActive
-                                                : styles.unitButtonTextInactive
-                                        ]}>
-                                            Metric
-                                        </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={[
-                                            styles.unitButton,
-                                            settings.units === 'imperial'
-                                                ? styles.unitButtonActive
-                                                : styles.unitButtonInactive
-                                        ]}
-                                        onPress={() => updateSetting('units', 'imperial')}
-                                    >
-                                        <Text style={[
-                                            styles.unitButtonText,
-                                            settings.units === 'imperial'
-                                                ? styles.unitButtonTextActive
-                                                : styles.unitButtonTextInactive
-                                        ]}>
-                                            Imperial
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-
-                        <View style={styles.section}>
-                            <Text style={styles.sectionTitle}>Data & Updates</Text>
-
-                            <View style={styles.settingItem}>
-                                <View style={styles.settingInfo}>
-                                    <Text style={styles.settingTitle}>Auto Refresh</Text>
-                                    <Text style={styles.settingDescription}>
-                                        Automatically update weather data every 30 minutes
-                                    </Text>
-                                </View>
-                                <Switch
-                                    value={settings.autoRefresh}
-                                    onValueChange={(value) => updateSetting('autoRefresh', value)}
-                                    trackColor={{
-                                        false: currentTheme.colors.border,
-                                        true: currentTheme.colors.primary
-                                    }}
-                                    thumbColor={settings.autoRefresh ? '#fff' : currentTheme.colors.textSecondary}
-                                />
-                            </View>
-
-                            <View style={styles.settingItem}>
-                                <View style={styles.settingInfo}>
-                                    <Text style={styles.settingTitle}>Notifications</Text>
-                                    <Text style={styles.settingDescription}>
-                                        Receive alerts for severe weather conditions
-                                    </Text>
-                                </View>
-                                <Switch
-                                    value={settings.notifications}
-                                    onValueChange={(value) => updateSetting('notifications', value)}
-                                    trackColor={{
-                                        false: currentTheme.colors.border,
-                                        true: currentTheme.colors.primary
-                                    }}
-                                    thumbColor={settings.notifications ? '#fff' : currentTheme.colors.textSecondary}
-                                />
-                            </View>
-                        </View>
-
-                        <View style={styles.dangerSection}>
-                            <Text style={styles.sectionTitle}>Data Management</Text>
-
-                            <TouchableOpacity style={styles.dangerButton} onPress={clearData}>
-                                <Text style={styles.dangerButtonText}>Clear All Data</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
-                </SafeAreaView>
-            )}
-        </View>
     );
-}; 
+};

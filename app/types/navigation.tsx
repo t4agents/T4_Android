@@ -3,21 +3,16 @@ import { StormDocumentation } from './index';
 
 // For your main tab navigator
 export type RootTabParamList = {
-    Weather: undefined;
-    Storms: undefined;
+    Home: undefined;
+    Payroll: undefined;
+    Onboarding: undefined;
     Settings: undefined;
 };
 
-// For your storm stack navigator (inside the Storms tab)
+// Legacy stack types kept for existing screens that haven't been removed yet.
 export type StormStackParamList = {
     StormList: undefined;
     CaptureStorm: undefined;
     StormDetail: { storm: StormDocumentation };
 };
-
-
-// export type RootStackParamList = {
-//     Home: undefined;
-//     Gallery: undefined;
-// };
 

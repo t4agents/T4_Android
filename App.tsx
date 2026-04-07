@@ -4,35 +4,17 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useColorScheme, StatusBar } from 'react-native';
 import "./global.css";
 import { Ionicons } from '@expo/vector-icons';
 import { darkTheme, lightTheme } from './app/constants/theme';
-import { WeatherScreen } from './app/screens/WeatherScreen';
+import { HomeScreen } from './app/screens/HomeScreen';
+import { PayrollScreen } from './app/screens/PayrollScreen';
+import { OnboardingScreen } from './app/screens/OnboardingScreen';
 import { SettingsScreen } from './app/screens/SettingsScreen';
 import { SettingsProvider } from './app/contexts/SettingsContext';
-import { BackgroundProvider } from './app/contexts/BackgroundContext';
-import { CaptureStormScreen } from './app/screens/CaptureStormScreen';
-import { StormListScreen } from './app/screens/StormListScreen';
-import { StormDetailScreen } from './app/screens/StormDetailScreen';
-import { RootTabParamList, StormStackParamList } from './app/types/navigation';
-import { WeatherProvider } from './app/contexts/WeatherContext';
-
-
-const Stack = createNativeStackNavigator<StormStackParamList>();
+import { RootTabParamList } from './app/types/navigation';
 const Tab = createBottomTabNavigator<RootTabParamList>();
-
-const StormStack = () => {
-    return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="StormList" component={StormListScreen} />
-            <Stack.Screen name="CaptureStorm" component={CaptureStormScreen} />
-            <Stack.Screen name="StormDetail" component={StormDetailScreen} />
-        </Stack.Navigator>
-    );
-};
-
 
 const TabNavigator = () => {
     const colorScheme = useColorScheme();
@@ -45,10 +27,12 @@ const TabNavigator = () => {
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName: keyof typeof Ionicons.glyphMap;
 
-                    if (route.name === 'Weather') {
-                        iconName = focused ? 'partly-sunny' : 'partly-sunny-outline';
-                    } else if (route.name === 'Storms') {
-                        iconName = focused ? 'thunderstorm' : 'thunderstorm-outline';
+                    if (route.name === 'Home') {
+                        iconName = focused ? 'home' : 'home-outline';
+                    } else if (route.name === 'Payroll') {
+                        iconName = focused ? 'cash' : 'cash-outline';
+                    } else if (route.name === 'Onboarding') {
+                        iconName = focused ? 'scan' : 'scan-outline';
                     } else if (route.name === 'Settings') {
                         iconName = focused ? 'settings' : 'settings-outline';
                     } else {
@@ -57,11 +41,11 @@ const TabNavigator = () => {
 
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: '#1e293b',
-                tabBarInactiveTintColor: '#64748b',
+                tabBarActiveTintColor: currentTheme.colors.primary,
+                tabBarInactiveTintColor: currentTheme.colors.textSecondary,
                 tabBarStyle: {
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderTopColor: 'rgba(255, 255, 255, 0.3)',
+                    backgroundColor: currentTheme.colors.surface,
+                    borderTopColor: currentTheme.colors.border,
                     borderTopWidth: 1,
                     elevation: 0,
                     shadowOpacity: 0,
@@ -71,8 +55,9 @@ const TabNavigator = () => {
                 headerShown: false,
             })}
         >
-            <Tab.Screen name="Weather" component={WeatherScreen} options={{ title: 'Weather' }} />
-            <Tab.Screen name="Storms" component={StormStack} options={{ title: 'Nota' }} />
+            <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
+            <Tab.Screen name="Payroll" component={PayrollScreen} options={{ title: 'Payroll' }} />
+            <Tab.Screen name="Onboarding" component={OnboardingScreen} options={{ title: 'Onboarding' }} />
             <Tab.Screen name="Settings" component={SettingsScreen} options={{ title: 'Settings' }} />
 
         </Tab.Navigator>
@@ -82,22 +67,17 @@ const TabNavigator = () => {
 export default function App() {
     const colorScheme = useColorScheme();
     const theme = colorScheme === 'dark' ? 'dark' : 'light';
-    const currentTheme = theme === 'dark' ? darkTheme : lightTheme;
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
-            <WeatherProvider>
-                <SettingsProvider>
-                    <BackgroundProvider>
-                        <SafeAreaProvider>
-                            <NavigationContainer>
-                                <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} />
-                                <TabNavigator />
-                            </NavigationContainer>
-                        </SafeAreaProvider>
-                    </BackgroundProvider>
-                </SettingsProvider>
-            </WeatherProvider>
+            <SettingsProvider>
+                <SafeAreaProvider>
+                    <NavigationContainer>
+                        <StatusBar barStyle={theme === 'dark' ? 'light-content' : 'dark-content'} />
+                        <TabNavigator />
+                    </NavigationContainer>
+                </SafeAreaProvider>
+            </SettingsProvider>
         </GestureHandlerRootView>
     );
 }

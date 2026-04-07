@@ -107,6 +107,7 @@ export const getWeatherScreenStyles = (currentTheme: any) => StyleSheet.create({
 export const getSettingsScreenStyles = (currentTheme: any) => StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: currentTheme.colors.background,
     },
     header: {
         flexDirection: 'row',
@@ -115,11 +116,21 @@ export const getSettingsScreenStyles = (currentTheme: any) => StyleSheet.create(
         borderBottomWidth: 1,
         borderBottomColor: currentTheme.colors.border,
     },
+    headerIcon: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        backgroundColor: currentTheme.colors.surface,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: currentTheme.spacing.sm,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         color: currentTheme.colors.text,
-        marginLeft: currentTheme.spacing.md,
     },
     content: {
         flex: 1,
@@ -169,14 +180,16 @@ export const getSettingsScreenStyles = (currentTheme: any) => StyleSheet.create(
         backgroundColor: currentTheme.colors.primary,
     },
     unitButtonInactive: {
-        backgroundColor: currentTheme.colors.border,
+        backgroundColor: currentTheme.colors.surface,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
     },
     unitButtonText: {
         fontSize: 14,
         fontWeight: '600',
     },
     unitButtonTextActive: {
-        color: currentTheme.colors.primary === '#ffffff' ? '#000000' : '#fff',
+        color: '#fff',
     },
     unitButtonTextInactive: {
         color: currentTheme.colors.textSecondary,
@@ -879,4 +892,547 @@ export const getWeatherCardStyles = (currentTheme: any) => StyleSheet.create({
         marginBottom: currentTheme.spacing.sm,
         minHeight: 200,
     },
-}); 
+});
+
+export const getHomeScreenStyles = (currentTheme: any) => StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: currentTheme.colors.background,
+    },
+    content: {
+        padding: currentTheme.spacing.lg,
+        paddingBottom: currentTheme.spacing.xl,
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        marginBottom: currentTheme.spacing.lg,
+    },
+    eyebrow: {
+        fontSize: 12,
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+        color: currentTheme.colors.textSecondary,
+    },
+    title: {
+        fontSize: 26,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+        marginTop: currentTheme.spacing.xs,
+    },
+    subtitle: {
+        fontSize: 14,
+        color: currentTheme.colors.textSecondary,
+        marginTop: currentTheme.spacing.xs,
+        maxWidth: 220,
+    },
+    avatar: {
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        backgroundColor: currentTheme.colors.primary,
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.2,
+        shadowRadius: 10,
+        elevation: 6,
+    },
+    askCard: {
+        borderRadius: 22,
+        padding: currentTheme.spacing.lg,
+        overflow: 'hidden',
+        marginBottom: currentTheme.spacing.xl,
+    },
+    askTitle: {
+        fontSize: 20,
+        fontWeight: '700',
+        color: '#1F2937',
+        marginBottom: currentTheme.spacing.xs,
+    },
+    askSubtitle: {
+        fontSize: 14,
+        color: '#3F3D3A',
+        marginBottom: currentTheme.spacing.md,
+    },
+    searchBar: {
+        backgroundColor: 'rgba(255, 255, 255, 0.92)',
+        borderRadius: 16,
+        paddingHorizontal: currentTheme.spacing.md,
+        paddingVertical: currentTheme.spacing.sm,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: currentTheme.spacing.md,
+    },
+    searchIcon: {
+        marginRight: currentTheme.spacing.sm,
+    },
+    searchPlaceholder: {
+        flex: 1,
+        fontSize: 13,
+        color: currentTheme.colors.textSecondary,
+    },
+    searchActions: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    searchActionIcon: {
+        marginLeft: currentTheme.spacing.sm,
+    },
+    askChips: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: currentTheme.spacing.xs,
+    },
+    chip: {
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        paddingHorizontal: currentTheme.spacing.sm,
+        paddingVertical: currentTheme.spacing.xs,
+        borderRadius: 999,
+        marginRight: currentTheme.spacing.sm,
+        marginBottom: currentTheme.spacing.sm,
+    },
+    chipText: {
+        fontSize: 12,
+        color: '#3F3D3A',
+        fontWeight: '600',
+    },
+    section: {
+        marginBottom: currentTheme.spacing.xl,
+    },
+    sectionHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: currentTheme.spacing.md,
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+    },
+    sectionLink: {
+        fontSize: 13,
+        color: currentTheme.colors.primary,
+        fontWeight: '600',
+    },
+    actionGrid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+    },
+    actionCard: {
+        width: '48%',
+        backgroundColor: currentTheme.colors.surface,
+        borderRadius: 16,
+        padding: currentTheme.spacing.md,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.08,
+        shadowRadius: 8,
+        elevation: 3,
+    },
+    actionIcon: {
+        width: 36,
+        height: 36,
+        borderRadius: 12,
+        backgroundColor: 'rgba(242, 133, 0, 0.12)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: currentTheme.spacing.sm,
+    },
+    actionTitle: {
+        fontSize: 14,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+    },
+    actionSubtitle: {
+        fontSize: 12,
+        color: currentTheme.colors.textSecondary,
+        marginTop: currentTheme.spacing.xs,
+    },
+    snapshotCard: {
+        backgroundColor: currentTheme.colors.surface,
+        borderRadius: 18,
+        padding: currentTheme.spacing.lg,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
+    },
+    snapshotRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: currentTheme.spacing.md,
+    },
+    snapshotItem: {
+        flex: 1,
+    },
+    snapshotLabel: {
+        fontSize: 12,
+        color: currentTheme.colors.textSecondary,
+        marginBottom: currentTheme.spacing.xs,
+    },
+    snapshotValue: {
+        fontSize: 16,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+    },
+    snapshotFooter: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: currentTheme.spacing.sm,
+    },
+    snapshotFooterText: {
+        fontSize: 12,
+        color: currentTheme.colors.textSecondary,
+        fontWeight: '600',
+        marginLeft: currentTheme.spacing.xs,
+    },
+    insightsCard: {
+        backgroundColor: currentTheme.colors.surface,
+        borderRadius: 18,
+        padding: currentTheme.spacing.lg,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
+    },
+    insightRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    insightRowSpacing: {
+        marginBottom: currentTheme.spacing.md,
+    },
+    insightIcon: {
+        width: 32,
+        height: 32,
+        borderRadius: 12,
+        backgroundColor: currentTheme.colors.background,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: currentTheme.spacing.sm,
+    },
+    insightText: {
+        flex: 1,
+    },
+    insightTitle: {
+        fontSize: 14,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+    },
+    insightDetail: {
+        fontSize: 12,
+        color: currentTheme.colors.textSecondary,
+        marginTop: currentTheme.spacing.xs,
+    },
+});
+
+export const getPayrollScreenStyles = (currentTheme: any) => StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: currentTheme.colors.background,
+    },
+    content: {
+        padding: currentTheme.spacing.lg,
+        paddingBottom: currentTheme.spacing.xl,
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: currentTheme.spacing.lg,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+    },
+    runButton: {
+        backgroundColor: currentTheme.colors.primary,
+        paddingHorizontal: currentTheme.spacing.md,
+        paddingVertical: currentTheme.spacing.sm,
+        borderRadius: 999,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    runButtonText: {
+        color: '#fff',
+        fontSize: 13,
+        fontWeight: '700',
+        marginLeft: currentTheme.spacing.xs,
+    },
+    section: {
+        marginBottom: currentTheme.spacing.xl,
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+        marginBottom: currentTheme.spacing.md,
+    },
+    runCard: {
+        backgroundColor: currentTheme.colors.surface,
+        borderRadius: 16,
+        padding: currentTheme.spacing.md,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: currentTheme.spacing.sm,
+    },
+    runDate: {
+        fontSize: 15,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+        marginBottom: currentTheme.spacing.xs,
+    },
+    runMeta: {
+        fontSize: 12,
+        color: currentTheme.colors.textSecondary,
+    },
+    runStatus: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    statusDot: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+    },
+    runStatusText: {
+        fontSize: 12,
+        fontWeight: '600',
+        color: currentTheme.colors.textSecondary,
+        marginLeft: currentTheme.spacing.xs,
+    },
+    taskCard: {
+        backgroundColor: currentTheme.colors.surface,
+        borderRadius: 16,
+        padding: currentTheme.spacing.md,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
+    },
+    taskRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    taskRowSpacing: {
+        marginBottom: currentTheme.spacing.md,
+    },
+    taskText: {
+        flex: 1,
+        marginLeft: currentTheme.spacing.sm,
+    },
+    taskTitle: {
+        fontSize: 14,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+    },
+    taskDetail: {
+        fontSize: 12,
+        color: currentTheme.colors.textSecondary,
+        marginTop: currentTheme.spacing.xs,
+    },
+    snapshotCard: {
+        backgroundColor: currentTheme.colors.surface,
+        borderRadius: 18,
+        padding: currentTheme.spacing.lg,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    snapshotItem: {
+        alignItems: 'center',
+        flex: 1,
+    },
+    snapshotDivider: {
+        width: 1,
+        height: 40,
+        backgroundColor: currentTheme.colors.border,
+    },
+    snapshotLabel: {
+        fontSize: 11,
+        color: currentTheme.colors.textSecondary,
+        marginBottom: currentTheme.spacing.xs,
+    },
+    snapshotValue: {
+        fontSize: 16,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+    },
+});
+
+export const getOnboardingScreenStyles = (currentTheme: any) => StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: currentTheme.colors.background,
+    },
+    content: {
+        padding: currentTheme.spacing.lg,
+        paddingBottom: currentTheme.spacing.xl,
+    },
+    header: {
+        marginBottom: currentTheme.spacing.lg,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+    },
+    subtitle: {
+        fontSize: 14,
+        color: currentTheme.colors.textSecondary,
+        marginTop: currentTheme.spacing.xs,
+    },
+    scanCard: {
+        backgroundColor: currentTheme.colors.surface,
+        borderRadius: 18,
+        padding: currentTheme.spacing.lg,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: currentTheme.spacing.xl,
+    },
+    scanIcon: {
+        width: 48,
+        height: 48,
+        borderRadius: 16,
+        backgroundColor: currentTheme.colors.primary,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: currentTheme.spacing.md,
+    },
+    scanText: {
+        flex: 1,
+    },
+    scanTitle: {
+        fontSize: 16,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+        marginBottom: currentTheme.spacing.xs,
+    },
+    scanSubtitle: {
+        fontSize: 12,
+        color: currentTheme.colors.textSecondary,
+    },
+    scanButton: {
+        backgroundColor: currentTheme.colors.primary,
+        paddingHorizontal: currentTheme.spacing.md,
+        paddingVertical: currentTheme.spacing.sm,
+        borderRadius: 999,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    scanButtonText: {
+        color: '#fff',
+        fontSize: 12,
+        fontWeight: '700',
+        marginLeft: currentTheme.spacing.xs,
+    },
+    section: {
+        marginBottom: currentTheme.spacing.xl,
+    },
+    sectionHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: currentTheme.spacing.md,
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+    },
+    sectionLink: {
+        fontSize: 13,
+        color: currentTheme.colors.primary,
+        fontWeight: '600',
+    },
+    importGrid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+    },
+    importCard: {
+        width: '48%',
+        backgroundColor: currentTheme.colors.surface,
+        borderRadius: 16,
+        padding: currentTheme.spacing.md,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
+        alignItems: 'flex-start',
+        marginBottom: currentTheme.spacing.md,
+    },
+    importTitle: {
+        fontSize: 14,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+        marginTop: currentTheme.spacing.sm,
+    },
+    importSubtitle: {
+        fontSize: 12,
+        color: currentTheme.colors.textSecondary,
+        marginTop: currentTheme.spacing.xs,
+    },
+    pendingCard: {
+        backgroundColor: currentTheme.colors.surface,
+        borderRadius: 18,
+        padding: currentTheme.spacing.lg,
+        borderWidth: 1,
+        borderColor: currentTheme.colors.border,
+    },
+    pendingRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    pendingRowSpacing: {
+        marginBottom: currentTheme.spacing.md,
+    },
+    pendingIcon: {
+        width: 32,
+        height: 32,
+        borderRadius: 12,
+        backgroundColor: currentTheme.colors.background,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: currentTheme.spacing.sm,
+    },
+    pendingText: {
+        flex: 1,
+    },
+    pendingName: {
+        fontSize: 14,
+        fontWeight: '700',
+        color: currentTheme.colors.text,
+    },
+    pendingDoc: {
+        fontSize: 12,
+        color: currentTheme.colors.textSecondary,
+        marginTop: currentTheme.spacing.xs,
+    },
+    pendingStatus: {
+        paddingHorizontal: currentTheme.spacing.sm,
+        paddingVertical: 4,
+        borderRadius: 999,
+    },
+    statusReady: {
+        backgroundColor: 'rgba(34, 197, 94, 0.15)',
+    },
+    statusReview: {
+        backgroundColor: 'rgba(245, 158, 11, 0.18)',
+    },
+    statusMissing: {
+        backgroundColor: 'rgba(239, 68, 68, 0.15)',
+    },
+    pendingStatusText: {
+        fontSize: 11,
+        fontWeight: '600',
+        color: currentTheme.colors.textSecondary,
+    },
+});
